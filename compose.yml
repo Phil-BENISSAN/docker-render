@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+
+# FASTAPI
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    volumes:
+      - ./app:/fastapi
+    tty: true
+    ports:
+    # Port local : Port dans le conteneur
+      - "8000:8000"  
+      
+# STREAMLIT
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    volumes:
+      - ./app:/streamlit
+    tty: true
+    ports:
+      # HTTP
+      - target: 8501
+        published: 8501
+        protocol: tcp
